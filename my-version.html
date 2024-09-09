@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      #find {
+        font-size: 110px;
+        text-align: center;
+      }
+      #timer {
+        font-size: 25px;
+        text-align: center;
+      }
+      body {
+        text-align: center;
+      }
+      button {
+        size: auto;
+        background-color: rgba(255, 0, 0, 0);
+        border: 0px;
+        font-size: 50px;
+      }
+    </style>
+    <title>emoji spot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="find"></div>
+    <br />
+    <div id="search"></div>
+
+    <noscript>
+      <h2>You need to have JavaScript enabled to run this game.</h2>
+      <a href="https://www.enable-javascript.com/">Check out some instructions here.</a>
+    </noscript>
+
+    <script>
+
+      // Difficulty related variables
+      const initialEmojis = 2;
+      const emojiIncrement = 2;
+
+      // My array of emojis
+      const emojis = ['😀','😃','😄','😁','😆','😅','😂','🤣','🥲','🥹','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🥸','🤩','🥳','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😮‍💨','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🫣','🤗','🫡','🤔','🫢','🤭','🤫','🤥','😶','😶‍🌫️','😐','😑','😬','🫨','🫠','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','😵‍💫','🫥','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠','😈','👿','👹','👺','🤡','💩','👻','💀','☠️','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾'];
+
+      /**
+       * A function to generate a random array of emojis
+       * It takes one parameter - the size parameter.
+       * The size parameter specifies how many emojis should be in the array.
+       */
+      function generateArrayOfEmojis(size) {
+        return emojis
+          .sort(() => Math.random() - 0.5) // Shuffle the array of emojis
+          .slice(0, size); // Take only the first couple of emojis depending on the size input
+      }
+
+      /**
+       * Updates the DOM with a new round
+       * The parameter specifies how many emojis are meant to be used in the round
+       */
+      function createRound(numEmojis) {
+        const findContainer = document.getElementById('find');
+        const searchContainer = document.getElementById('search');
+
+        const searchEmojis = generateArrayOfEmojis(numEmojis);
+        const correctEmoji = Math.floor(Math.random() * numEmojis);
+
+        // Update the correct emoji on screen
+        findContainer.innerText = searchEmojis[correctEmoji];
+
+        // Get rid of all of the emoji buttons that were already there
+        searchContainer.innerText = '';
+
+        // Create new emoji buttons for this round
+        for (let i = 0; i < numEmojis; i++) {
+          let emojiButton = document.createElement('button');
+          emojiButton.innerText = searchEmojis[i];
+
+          emojiButton.addEventListener('click', function () {
+            if (i === correctEmoji) {
+              alert('Correct!');
+              createRound(numEmojis + emojiIncrement);
+            } else {
+              alert('Wrong!');
+            }
+          });
+
+          searchContainer.appendChild(emojiButton);
+        }
+      }
+
+      // Creates the first round
+      createRound(initialEmojis);
+    </script>
+  </body>
+</html>
