@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Floating Numbers</title>
+    <style>
+        .floating-number {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .float-up {
+            animation: floatUp 1s ease-out;
+            color: green;
+        }
+
+        .float-down {
+            animation: floatDown 1s ease-out;
+            color: red;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="lose">-5</button>
+    <button id="win">+5</button>
+
+    <script>
+        const loseButton = document.getElementById('lose');
+        const winButton = document.getElementById('win');
+
+        loseButton.addEventListener('click', () => {
+            const minusFive = document.createElement('span');
+            minusFive.textContent = '-5';
+            minusFive.classList.add('floating-number', 'float-down');
+
+            // Position the number over the button
+            minusFive.style.left = loseButton.offsetLeft + 'px';
+            minusFive.style.top = loseButton.offsetTop + 'px';
+
+            document.body.appendChild(minusFive);
+
+            setTimeout(() => {
+                minusFive.remove();
+            }, 1000);
+        });
+
+        winButton.addEventListener('click', () => {
+            const plusFive = document.createElement('span');
+            plusFive.textContent = '+5';
+            plusFive.classList.add('floating-number', 'float-up');
+
+            // Position the number over the button
+            plusFive.style.left = winButton.offsetLeft + 'px';
+            plusFive.style.top = winButton.offsetTop + 'px';
+
+            document.body.appendChild(plusFive);
+
+            setTimeout(() => {
+                plusFive.remove();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
