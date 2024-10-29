@@ -73,8 +73,9 @@
 
         // Create new emoji buttons for this round
         for (let i = 0; i < numEmojis; i++) {
+          if(searchEmojis[i]!==undefined){
           let emojiButton = document.createElement('button');
-          emojiButton.innerText = searchEmojis[i];
+          emojiButton.innerText = searchEmojis[i];}
 
           emojiButton.addEventListener('click', function () {
             if (i === correctEmoji) {
